@@ -1,0 +1,43 @@
+{
+  "name": "pokerpot",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^4.36.1",
+    "@thirdweb-dev/chains": "^0.1.120",
+    "@thirdweb-dev/react": "^4.9.4",
+    "@thirdweb-dev/sdk": "^4.0.99",
+    "next": "14.2.5",
+    "pino-pretty": "^13.1.3",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "overrides": {
+    "@thirdweb-dev/react": {
+      "@tanstack/react-query": "4.36.1"
+    },
+    "@thirdweb-dev/react-core": {
+      "@tanstack/react-query": "4.36.1"
+    }
+  },
+  "devDependencies": {
+    "@nomiclabs/hardhat-ethers": "^2.2.3",
+    "@types/node": "^20.14.10",
+    "@types/react": "^18.2.79",
+    "@types/react-dom": "^18.2.25",
+    "autoprefixer": "^10.4.19",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "14.2.5",
+    "hardhat": "^2.22.15",
+    "postcss": "^8.4.39",
+    "tailwindcss": "^3.4.7",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4"
+  }
+}
