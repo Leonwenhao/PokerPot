@@ -43,11 +43,7 @@ contract PokerPotEscrow {
         require(amount > 0, "PokerPotEscrow: amount is zero");
         require(totalPot >= amount, "PokerPotEscrow: insufficient pot");
         uint256 playerBalance = balances[player];
-        if (playerBalance >= amount) {
-            balances[player] = playerBalance - amount;
-        } else {
-            balances[player] = 0;
-        }
+        balances[player] = playerBalance >= amount ? playerBalance - amount : 0;
         totalPot -= amount;
         bool ok = usdc.transfer(player, amount);
         require(ok, "PokerPotEscrow: transfer failed");

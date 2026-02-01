@@ -85,7 +85,10 @@ export default function DepositModal({ open, onClose, gameCode }: DepositModalPr
           </label>
           <input
             value={amount}
-            onChange={(event) => setAmount(event.target.value)}
+            onChange={(event) => {
+              const v = event.target.value;
+              if (v === "" || /^\d*\.?\d{0,6}$/.test(v)) setAmount(v);
+            }}
             className="w-full rounded-2xl border border-emerald-300/30 bg-black/40 px-5 py-4 text-2xl font-semibold text-emerald-100 outline-none transition focus:border-emerald-300"
             inputMode="decimal"
           />
@@ -120,7 +123,7 @@ export default function DepositModal({ open, onClose, gameCode }: DepositModalPr
               ) : null}
             </div>
             <ConfirmationStatus txHash={txHash} />
-            <EspressoConfirmationBadge pulse />
+            <EspressoConfirmationBadge pulse enabled={!!txHash} />
           </div>
         ) : null}
 
@@ -129,7 +132,7 @@ export default function DepositModal({ open, onClose, gameCode }: DepositModalPr
         <div className="mt-6 flex flex-col gap-3">
           <button
             type="button"
-            disabled={isSubmitting}
+            disabled={isSubmitting || !amount || Number(amount) <= 0}
             onClick={() => executeDeposit(amount)}
             className="w-full rounded-full bg-emerald-400 px-6 py-3 text-sm font-semibold text-black shadow-lg shadow-emerald-500/30 transition hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-60"
           >
