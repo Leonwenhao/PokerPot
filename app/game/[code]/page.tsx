@@ -10,6 +10,7 @@ import PayoutPanel from "../../../components/PayoutPanel";
 import EspressoConfirmationBadge from "../../../components/EspressoConfirmation";
 import { usePotBalance } from "../../../hooks/usePotBalance";
 import { getGame, type GameState } from "../../../lib/gameState";
+import { getDepositsForGame } from "../../../lib/deposit";
 
 export default function GameRoomPage() {
   const params = useParams();
@@ -17,6 +18,7 @@ export default function GameRoomPage() {
   const address = useAddress();
   const [game, setGame] = useState<GameState | null>(null);
   const [isDepositOpen, setIsDepositOpen] = useState(false);
+  const [hasDeposits, setHasDeposits] = useState(false);
   const pot = usePotBalance(8000);
 
   const code = useMemo(() => {
@@ -32,6 +34,17 @@ export default function GameRoomPage() {
       return;
     }
     setGame(getGame(code));
+  }, [code]);
+
+  useEffect(() => {
+    if (!code) return;
+    const check = () => {
+      const deposits = getDepositsForGame(code);
+      setHasDeposits(Object.keys(deposits).length > 0);
+    };
+    check();
+    const interval = setInterval(check, 4000);
+    return () => clearInterval(interval);
   }, [code]);
 
   return (
@@ -67,7 +80,7 @@ export default function GameRoomPage() {
           breakdown={pot.chains.map((c) => ({ label: c.label, amount: c.amount }))}
         />
 
-        <EspressoConfirmationBadge pulse={isDepositOpen} />
+        <EspressoConfirmationBadge pulse={isDepositOpen} enabled={hasDeposits} />
 
         <section className="rounded-3xl border border-white/10 bg-white/5 px-6 py-5">
           <div className="flex flex-col gap-3 text-sm text-slate-200">

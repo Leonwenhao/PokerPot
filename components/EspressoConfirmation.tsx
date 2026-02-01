@@ -12,13 +12,17 @@ type EspressoConf = {
 
 type Props = {
   pulse?: boolean;
+  /** When true, the badge is enabled and will poll Espresso. When false/undefined, renders nothing. */
+  enabled?: boolean;
 };
 
-export default function EspressoConfirmationBadge({ pulse }: Props) {
+export default function EspressoConfirmationBadge({ pulse, enabled }: Props) {
   const [conf, setConf] = useState<EspressoConf | null>(null);
   const [error, setError] = useState(false);
 
   useEffect(() => {
+    if (!enabled) return;
+
     let mounted = true;
 
     const poll = async () => {
@@ -41,7 +45,9 @@ export default function EspressoConfirmationBadge({ pulse }: Props) {
       mounted = false;
       clearInterval(interval);
     };
-  }, [pulse]);
+  }, [pulse, enabled]);
+
+  if (!enabled) return null;
 
   if (error) {
     return (

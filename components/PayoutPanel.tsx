@@ -132,7 +132,7 @@ export default function PayoutPanel({ gameCode, hostAddress }: PayoutPanelProps)
       </div>
 
       <div className="mt-4">
-        <EspressoConfirmationBadge pulse={isExecuting} />
+        <EspressoConfirmationBadge pulse={isExecuting} enabled={players.length > 0} />
       </div>
 
       {players.length === 0 ? (
