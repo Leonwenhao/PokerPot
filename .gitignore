@@ -5,3 +5,13 @@ node_modules/
 out/
 dist/
 *.tsbuildinfo
+.vercel
+artifacts/
+cache/
+.claude/
+SCRATCHPAD.md
+TASK_QUEUE.md
+WORKFLOW.md
+DEVELOPMENT_PLAN.md
+GEMINI_RESEARCH_PROMPT.md
+COMPLETION_REPORT.md
